@@ -2,3 +2,12 @@ body{
   margin: 0;
   padding: 0;
 }
+
+
+.el-tabs {
+  border-bottom: none !important;
+  border-left: none !important;
+}
+.el-tabs__content {
+  padding: 0 !important;
+}
