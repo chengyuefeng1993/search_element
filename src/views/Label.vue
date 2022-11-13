@@ -1,8 +1,8 @@
 <template>
   <div class="label">
-    <el-tabs 
-    v-model="editableTabsValue" 
-    type="border-card" editable 
+    <el-tabs
+    v-model="editableTabsValue"
+    type="border-card" editable
     @edit="handleTabsEdit"
     >
       <el-tab-pane
@@ -55,4 +55,8 @@ const handleTabsEdit = (targetName: string, action: "remove" | "add") => {
   }
 };
 </script>
-<style scoped></style>
+<style scoped>
+.label{
+  display: flex;
+}
+</style>

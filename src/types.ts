@@ -10,3 +10,19 @@ export type Stage = {
   unAuditCount: number
   waitForMarkCount: number
 };
+
+export type Tag = {
+  clearCount: number
+  firstAuditCorrectCount: number
+  firstAuditCorrectRatio: string
+  firstAuditTotalCount: number
+  statisticMarkedCount: number
+  statisticTime: number
+  totalMarkedCount: number
+  userName: string
+}
+
+export type Skip = {
+  userName:string
+  count:number
+}

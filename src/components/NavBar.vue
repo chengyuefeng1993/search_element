@@ -26,8 +26,8 @@
         <span>回查</span>
       </el-menu-item>
     </el-menu>
-    <div class="collapse" @click="() => (data.collapsed = !data.collapsed)">
-      <div class="collapsed">
+    <div class="collapse" >
+      <div class="collapsed" @click="() => (data.collapsed = !data.collapsed)">
         <el-icon v-show="!data.collapsed">
           <ArrowLeftBold />
         </el-icon>
@@ -73,8 +73,7 @@ const data = ref({
   justify-content: center;
   align-items: center;
   height: 60px;
-  cursor: pointer;
-  user-select: none;
+
 }
 .collapsed{
   display: flex;
@@ -85,6 +84,8 @@ const data = ref({
   border: 1px solid var(--el-border-color);
   border-radius: 50%;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  user-select: none;
 }
 .collapsed:hover {
   background-color: var(--el-color-info-light-9);
