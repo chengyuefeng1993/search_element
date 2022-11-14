@@ -6,6 +6,7 @@
           type="datetimerange"
           v-model="data.time"
           style="width: 350px"
+          :shortcuts="shortCuts"
         />
         <el-button-group>
           <el-button @click="changeTime('back')">
@@ -249,6 +250,30 @@ const isShow = computed(() => {
 const isEmpty = computed(() => {
   return !(Object.getOwnPropertyNames(data.value.stageList).length > 0 || data.value.tagList.length > 0 || data.value.skipList.length > 0)
 })
+
+const shortCuts = [
+  {
+    text:'七天',
+    value:[
+      dayjs().subtract(7,'day').startOf('day').toDate(),
+      dayjs().endOf('day').toDate()
+    ]
+  },
+  {
+    text: '半个月',
+    value: [
+      dayjs().subtract(15,'day').startOf('day').toDate(),
+      dayjs().endOf('day').toDate()
+    ]
+  },
+  {
+    text: '一个月',
+    value: [
+      dayjs().subtract(30,'day').startOf('day').toDate(),
+      dayjs().endOf('day').toDate()
+    ]
+  }
+]
 </script>
 
 <style scoped>

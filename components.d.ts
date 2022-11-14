@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     LabelView: typeof import('./src/components/labelcomp/LabelView.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
     ReviewData: typeof import('./src/components/labelcomp/ReviewData.vue')['default']
+    ReviewView: typeof import('./src/components/reviewcomp/ReviewView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SkipData: typeof import('./src/components/labelcomp/SkipData.vue')['default']
