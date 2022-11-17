@@ -21,3 +21,8 @@ a {
 a:hover {
   color: #79bbff;
 }
+
+@font-face {
+  font-family: SmileySans;
+  src: url('@/assets/SmileySans-Oblique.ttf.woff2');
+}

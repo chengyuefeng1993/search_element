@@ -140,6 +140,7 @@ const getStageData = async () => {
     if (res.data.code == 200) {
       data.value.stageList = res.data.result
     } else {
+      data.value.stageList = {} as Stage
       console.log(res)
     }
     data.value.isLoadingNum += 1
@@ -168,6 +169,7 @@ const getTagData = async () => {
       let list = res.data.result
       data.value.tagList = list.splice(0, list.length - 2)
     } else {
+      data.value.tagList = []
       console.log(res)
     }
     data.value.isLoadingNum += 1
@@ -193,6 +195,7 @@ const getSkipData = async () => {
     if (res.data.code == 200) {
       data.value.skipList = res.data.result
     } else {
+      data.value.skipList = []
       console.log(res)
     }
     data.value.isLoadingNum += 1
