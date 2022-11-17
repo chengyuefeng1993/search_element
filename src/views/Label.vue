@@ -1,16 +1,9 @@
 <template>
   <div class="label">
-    <el-tabs
-    v-model="editableTabsValue"
-    type="border-card" editable
-    @edit="handleTabsEdit"
-    >
-      <el-tab-pane
-        v-for="item in editableTabs"
-        :key="item.name"
-        :label="item.title"
-        :name="item.name"
-      ><LabelView/></el-tab-pane>
+    <el-tabs v-model="editableTabsValue" type="border-card" editable @edit="handleTabsEdit">
+      <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
+        <LabelView />
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -56,7 +49,5 @@ const handleTabsEdit = (targetName: string, action: "remove" | "add") => {
 };
 </script>
 <style scoped>
-.label{
-  display: flex;
-}
+
 </style>

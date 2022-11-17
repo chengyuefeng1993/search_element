@@ -2,87 +2,54 @@
   <div class="review">
     <div class="review-bar">
       <el-space wrap>
-        <el-date-picker
-          type="datetimerange"
-          style="width: 350px;"
-          v-model="data.time"
-        />
+        <el-date-picker type="datetimerange" style="width: 350px;" v-model="data.time" />
         <el-select v-model="data.stageName" style="width: 75px">
-          <el-option label="标注" value="label"/>
-          <el-option label="一审" value="review"/>
-          <el-option label="全部" value="allReview"/>
+          <el-option label="标注" value="label" />
+          <el-option label="一审" value="review" />
+          <el-option label="全部" value="allReview" />
         </el-select>
-        <el-input placeholder="用户名" v-model="data.userName" style="width: 160px;" clearable/>
-        <el-input placeholder="dataId" v-model="data.dataId" style="width: 90px" clearable/>
-        <el-input
-          v-model="data.id"
-          style="width: 150px"
-          :maxlength="5" clearable
-          placeholder="包ID"
-          @keyup.enter="onSearch"
-        >
+        <el-input placeholder="用户名" v-model="data.userName" style="width: 160px;" clearable />
+        <el-input placeholder="dataId" v-model="data.dataId" style="width: 90px" clearable />
+        <el-input v-model="data.id" style="width: 150px" :maxlength="5" clearable placeholder="包ID"
+          @keyup.enter="onSearch">
           <template #append>
             <el-button @click="onSearch">查询</el-button>
           </template>
         </el-input>
-        <el-switch
-          v-model="data.isFilter"
-          style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-          active-text="开启过滤"
-          inactive-text="关闭过滤"
-          v-show="data.reviewList.totalSize > 0"
-        />
-        <el-switch
-          v-model="data.imgIsShow"
-          style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-          active-text="显示图片"
-          inactive-text="隐藏图片"
-          v-show="data.reviewList.dataType === 'video'"
-        />
+        <el-switch v-model="data.isFilter" style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+          active-text="开启过滤" inactive-text="关闭过滤" v-show="data.reviewList.totalSize > 0" />
+        <el-switch v-model="data.imgIsShow" style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+          active-text="显示图片" inactive-text="隐藏图片" v-show="data.reviewList.dataType === 'video'" />
       </el-space>
     </div>
-    <el-divider style="margin: 0;padding: 0"/>
+    <el-divider style="margin: 0;padding: 0" />
     <div class="review-main" v-loading="data.isLoading">
       <div v-show="changeView != null">
-        <el-space
-          wrap :size="10"
-          alignment="start"
-        >
-          <component
-            :is="changeView"
-            v-for="item in reviewData"
-            :item="item"
-            :historyList="item.answers[0].historyList"
-            :key="item.dataId"
-            :imgIsShow="data.imgIsShow"
-          />
+        <el-space wrap :size="10" alignment="start">
+          <component :is="changeView" v-for="item in reviewData" :item="item" :historyList="item.answers[0].historyList"
+            :key="item.dataId" :imgIsShow="data.imgIsShow" />
         </el-space>
         <div class="pager">
-          <el-pagination :total="total" layout="total,prev,pager,next,jumper,sizes"
-                         v-model:current-page="data.pageNum" v-model:page-size="data.pageSize"
-                         :page-sizes="pageSizes" background v-show="total !== 0"
-                         @current-change="pageNumChange" @size-change="pageSizeChange" :hide-on-single-page="true"/>
+          <el-pagination :total="total" layout="total,prev,pager,next,jumper,sizes" v-model:current-page="data.pageNum"
+            v-model:page-size="data.pageSize" :page-sizes="pageSizes" background v-show="total !== 0"
+            @current-change="pageNumChange" @size-change="pageSizeChange" :hide-on-single-page="true" />
         </div>
       </div>
-      <el-empty
-        :image-size="200"
-        v-show="isEmpty"
-        description="无数据"
-      />
+      <el-empty :image-size="200" v-show="isEmpty" description="无数据" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
-import type {Component} from 'vue'
+import { computed, inject, onMounted, ref } from "vue";
+import type { Component } from 'vue'
 import dayjs from "dayjs";
-import {ElMessage} from "element-plus";
+import { ElMessage } from "element-plus";
 import 'element-plus/es/components/message/style/css'
 import axios from "axios";
-import type {Review} from "@/types";
+import { key, type Review } from "@/types";
 import TextView from './TextView.vue'
 import VideoView from './VideoView.vue'
-import {useMainStore} from "@/stores";
+import { useMainStore } from "@/stores";
 
 
 const reviewGet = axios.create({
@@ -167,7 +134,7 @@ const getReviewData = async () => {
   })
 }
 
-const changeView = computed<Component>(() => {
+const changeView = computed(() => {
   if (data.value.reviewList.dataType == 'text') {
     return TextView
   } else if (data.value.reviewList.dataType == 'video') {
@@ -187,17 +154,19 @@ const total = computed(() => {
     return 0
   }
 })
+
+const scrollMove = inject(key) as Function
 const pageNumChange = (num: number) => {
   data.value.pageNum = num
   onSearch()
-  mainStore.backToTop()
+  scrollMove()
 }
 
 const pageSizeChange = () => {
   data.value.pageNum = 1
   window.localStorage.setItem('pageSize', data.value.pageSize.toString())
   onSearch()
-  mainStore.backToTop()
+  scrollMove()
 }
 
 onMounted(() => {
@@ -208,7 +177,6 @@ onMounted(() => {
 })
 </script>
 <style scoped>
-
 .review-bar {
   padding: 10px;
 }
@@ -216,6 +184,7 @@ onMounted(() => {
 .review-main {
   padding: 10px;
 }
+
 .pager {
   display: flex;
   width: 100%;

@@ -2,82 +2,65 @@
   <div class="label-view">
     <div class="label-bar">
       <el-space wrap>
-        <el-date-picker
-          type="datetimerange"
-          v-model="data.time"
-          style="width: 350px"
-          :shortcuts="shortCuts"
-        />
+        <el-date-picker type="datetimerange" v-model="data.time" style="width: 350px" :shortcuts="shortCuts" />
         <el-button-group>
           <el-button @click="changeTime('back')">
             <el-icon>
-              <ArrowLeftBold/>
+              <ArrowLeftBold />
             </el-icon>
           </el-button>
           <el-button @click="changeTime('today')">
             <el-icon>
-              <Aim/>
+              <Aim />
             </el-icon>
           </el-button>
           <el-button @click="changeTime('foward')">
             <el-icon>
-              <ArrowRightBold/>
+              <ArrowRightBold />
             </el-icon>
           </el-button>
         </el-button-group>
         <el-select v-model="data.stageName" style="width: 75px">
-          <el-option label="标注" value="label"/>
-          <el-option label="一审" value="review"/>
+          <el-option label="标注" value="label" />
+          <el-option label="一审" value="review" />
         </el-select>
         <el-input v-model="data.skipNum" style="width: 150px" :maxlength="4">
           <template #prefix>
             <span>暂跳额度：</span>
           </template>
         </el-input>
-        <el-input
-          v-model="data.id"
-          style="width: 150px"
-          :maxlength="5" clearable
-          placeholder="包ID"
-          @keyup.enter="onSearch"
-        >
+        <el-input v-model="data.id" style="width: 150px" :maxlength="5" clearable placeholder="包ID"
+          @keyup.enter="onSearch">
           <template #append>
             <el-button @click="onSearch">查询</el-button>
           </template>
         </el-input>
       </el-space>
     </div>
-    <el-divider style="margin: 0;padding: 0"/>
+    <el-divider style="margin: 0;padding: 0" />
     <div class="label-main" v-show="isShow" v-loading="isLoading">
-      <StageData :stageList="data.stageList"/>
+      <StageData :stageList="data.stageList" />
       <el-row :gutter="10" justify="space-between" style="margin-top: 10px">
         <el-col :xs="24" :sm="16">
-          <TagData
-            :tagList="data.tagList"
-            :id="data.id"
-            :tmstart="dayjs(data.time[0]).valueOf()"
-            :tmstop="dayjs(data.time[1]).valueOf()"/>
+          <TagData :tagList="data.tagList" :id="data.id" :tmstart="dayjs(data.time[0]).valueOf()"
+            :tmstop="dayjs(data.time[1]).valueOf()" />
         </el-col>
         <el-col :xs="24" :sm="8">
-          <SkipData :skipList="data.skipList" :skipNum="data.skipNum"/>
+          <SkipData :skipList="data.skipList" :skipNum="data.skipNum" />
         </el-col>
       </el-row>
     </div>
-    <el-empty
-      :image-size="200"
-      v-show="isEmpty"
-      description="无数据"
-    />
+    <el-empty :image-size="200" v-show="isEmpty" description="无数据" />
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from 'vue';
-import type {Skip, Stage, Tag} from '@/types'
+import { computed, ref } from 'vue';
+import type { Skip, Stage, Tag } from '@/types'
 import dayjs from 'dayjs'
-import {ArrowLeftBold, ArrowRightBold, Aim} from '@element-plus/icons-vue'
+import { ArrowLeftBold, ArrowRightBold, Aim } from '@element-plus/icons-vue'
 import axios from "axios";
-import {ElMessage, ElNotification} from "element-plus";
+import { ElMessage, ElNotification } from "element-plus";
 import 'element-plus/es/components/message/style/css'
 import StageData from "@/components/labelcomp/StageData.vue";
 import TagData from "@/components/labelcomp/TagData.vue";
@@ -253,23 +236,23 @@ const isEmpty = computed(() => {
 
 const shortCuts = [
   {
-    text:'七天',
-    value:[
-      dayjs().subtract(7,'day').startOf('day').toDate(),
+    text: '七天',
+    value: [
+      dayjs().subtract(7, 'day').startOf('day').toDate(),
       dayjs().endOf('day').toDate()
     ]
   },
   {
     text: '半个月',
     value: [
-      dayjs().subtract(15,'day').startOf('day').toDate(),
+      dayjs().subtract(15, 'day').startOf('day').toDate(),
       dayjs().endOf('day').toDate()
     ]
   },
   {
     text: '一个月',
     value: [
-      dayjs().subtract(30,'day').startOf('day').toDate(),
+      dayjs().subtract(30, 'day').startOf('day').toDate(),
       dayjs().endOf('day').toDate()
     ]
   }
@@ -277,12 +260,6 @@ const shortCuts = [
 </script>
 
 <style scoped>
-.label-view {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
 .label-bar {
   padding: 10px;
 }

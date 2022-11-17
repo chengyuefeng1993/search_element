@@ -1,34 +1,31 @@
 <template>
-  <div class="text"
-       :style="{borderColor:props.item.reviewUser == null?'red':'green'}"
-  >
+  <div class="text" :style="{ borderColor: props.item.reviewUser == null ? 'red' : 'green' }">
     <div class="caption">
       <b v-html="item.caption" style="font-size: 16px"></b>
     </div>
     <div class="info">
-      <span>dataId:{{ item.dataId }}</span><br>
+      <span>dataId:{{ item?.dataId }}</span><br>
       <span>{{ item.defaultCategory }}</span>
     </div>
-    <el-divider style="margin: 5px 0;padding: 0"/>
+    <el-divider style="margin: 5px 0;padding: 0" />
     <div class="history">
-      <p
-        style="padding: 0;margin: 0"
-        v-for="(i,index) in historyList"
-        :key="index">
+      <p style="padding: 0;margin: 0" v-for="(i, index) in historyList" :key="index">
         {{ i }}
       </p>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import type {PropType} from "vue";
-import type {DataType} from "@/types";
+import type { PropType } from "vue";
+import type { DataType } from "@/types";
 
 const props = defineProps({
   item: {
-    type: Object as PropType<DataType>
+    type: Object as PropType<DataType>,
+    default: {}
   },
-  historyList: Array as PropType<Array<string>>
+  historyList: Array as PropType<Array<string>>,
+  default: []
 })
 </script>
 <style scoped>

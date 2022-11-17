@@ -1,3 +1,5 @@
+import type { InjectionKey } from 'vue'
+
 export type Stage = {
   auditSkipCount: number
   auditWaitForMarkCount: number
@@ -9,7 +11,7 @@ export type Stage = {
   totalCount: number
   unAuditCount: number
   waitForMarkCount: number
-};
+}
 
 export type Tag = {
   clearCount: number
@@ -23,8 +25,8 @@ export type Tag = {
 }
 
 export type Skip = {
-  userName:string
-  count:number
+  userName: string
+  count: number
 }
 
 export type Review = {
@@ -71,6 +73,8 @@ export type Answers = {
 }
 
 export type Filter = {
-  label?:string
-  value?:string
+  label?: string
+  value?: string
 }
+
+export const key = Symbol() as InjectionKey<Function>

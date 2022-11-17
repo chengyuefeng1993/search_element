@@ -1,12 +1,10 @@
-body{
+body {
   margin: 0;
   padding: 0;
 }
 
-
 .el-tabs {
   border: none !important;
-
 }
 
 .el-tabs__content {
@@ -14,13 +12,12 @@ body{
   width: 100%;
 }
 
-
-a{
-  color: #8D9095;
+a {
+  color: #8d9095;
   text-decoration-line: none;
   font-size: 12px;
 }
 
-a:hover{
-  color: #CFD3DC;
+a:hover {
+  color: #79bbff;
 }
