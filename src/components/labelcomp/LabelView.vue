@@ -38,19 +38,21 @@
       </el-space>
     </div>
     <el-divider style="margin: 0;padding: 0" />
-    <div class="label-main" v-show="isShow" v-loading="isLoading">
-      <StageData :stageList="data.stageList" />
-      <el-row :gutter="10" justify="space-between" style="margin-top: 10px">
-        <el-col :xs="24" :sm="16">
-          <TagData :tagList="data.tagList" :id="data.id" :tmstart="dayjs(data.time[0]).valueOf()"
-            :tmstop="dayjs(data.time[1]).valueOf()" />
-        </el-col>
-        <el-col :xs="24" :sm="8">
-          <SkipData :skipList="data.skipList" :skipNum="data.skipNum" />
-        </el-col>
-      </el-row>
+    <div class="label-main" v-loading="isLoading">
+      <div v-show="isShow">
+        <StageData :stageList="data.stageList" />
+        <el-row :gutter="10" justify="space-between" style="margin-top: 10px">
+          <el-col :xs="24" :sm="16">
+            <TagData :tagList="data.tagList" :id="data.id" :tmstart="dayjs(data.time[0]).valueOf()"
+              :tmstop="dayjs(data.time[1]).valueOf()" />
+          </el-col>
+          <el-col :xs="24" :sm="8">
+            <SkipData :skipList="data.skipList" :skipNum="data.skipNum" />
+          </el-col>
+        </el-row>
+      </div>
+      <el-empty :image-size="200" v-show="isEmpty" description="无数据" />
     </div>
-    <el-empty :image-size="200" v-show="isEmpty" description="无数据" />
   </div>
 </template>
 
@@ -240,24 +242,30 @@ const isEmpty = computed(() => {
 const shortCuts = [
   {
     text: '七天',
-    value: [
-      dayjs().subtract(7, 'day').startOf('day').toDate(),
-      dayjs().endOf('day').toDate()
-    ]
+    onClick: () => {
+      data.value.time = [
+        dayjs().subtract(7, 'day').startOf('day').toDate(),
+        dayjs().endOf('day').toDate()
+      ]
+    }
   },
   {
     text: '半个月',
-    value: [
-      dayjs().subtract(15, 'day').startOf('day').toDate(),
-      dayjs().endOf('day').toDate()
-    ]
+    onClick: () => {
+      data.value.time = [
+        dayjs().subtract(15, 'day').startOf('day').toDate(),
+        dayjs().endOf('day').toDate()
+      ]
+    }
   },
   {
     text: '一个月',
-    value: [
-      dayjs().subtract(30, 'day').startOf('day').toDate(),
-      dayjs().endOf('day').toDate()
-    ]
+    onClick: () => {
+      data.value.time = [
+        dayjs().subtract(30, 'day').startOf('day').toDate(),
+        dayjs().endOf('day').toDate()
+      ]
+    }
   }
 ]
 </script>

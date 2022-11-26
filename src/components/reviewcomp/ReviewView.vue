@@ -2,7 +2,7 @@
   <div class="review">
     <div class="review-bar">
       <el-space wrap>
-        <el-date-picker type="datetimerange" style="width: 350px;" v-model="data.time" />
+        <el-date-picker type="datetimerange" style="width: 350px;" v-model="data.time" :shortcuts="shortCuts" />
         <el-select v-model="data.stageName" style="width: 75px">
           <el-option label="标注" value="label" />
           <el-option label="一审" value="review" />
@@ -175,6 +175,63 @@ onMounted(() => {
     data.value.pageSize = Number(pageSize)
   }
 })
+
+const shortCuts = [
+  {
+    text: '前一天',
+    onClick: () => {
+      data.value.time = [
+        dayjs(data.value.time[0]).subtract(1, 'day').startOf('day').toDate(),
+        dayjs(data.value.time[1]).subtract(1, 'day').endOf('day').toDate(),
+      ] as [Date, Date]
+    }
+  },
+  {
+    text: '今天',
+    onClick: () => {
+      data.value.time = [
+        dayjs().startOf('day').toDate(),
+        dayjs().endOf('day').toDate(),
+      ] as [Date, Date]
+    }
+  },
+  {
+    text: '后一天',
+    onClick: () => {
+      data.value.time = [
+        dayjs(data.value.time[0]).add(1, 'day').startOf('day').toDate(),
+        dayjs(data.value.time[1]).add(1, 'day').endOf('day').toDate(),
+      ] as [Date, Date]
+    }
+  },
+  {
+    text: '七天',
+    onClick: () => {
+      data.value.time = [
+        dayjs().subtract(7, 'day').startOf('day').toDate(),
+        dayjs().endOf('day').toDate()
+      ]
+    }
+  },
+  {
+    text: '半个月',
+    onClick: () => {
+      data.value.time = [
+        dayjs().subtract(15, 'day').startOf('day').toDate(),
+        dayjs().endOf('day').toDate()
+      ]
+    }
+  },
+  {
+    text: '一个月',
+    onClick: () => {
+      data.value.time = [
+        dayjs().subtract(30, 'day').startOf('day').toDate(),
+        dayjs().endOf('day').toDate()
+      ]
+    }
+  }
+]
 </script>
 <style scoped>
 .review-bar {
